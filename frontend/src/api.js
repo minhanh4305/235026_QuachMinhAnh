@@ -1,4 +1,8 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Ưu tiên: runtime config (window.__API_URL__) > build-time env > fallback
+const BASE_URL =
+  (typeof window !== 'undefined' && window.__API_URL__) ||
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:5000';
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE_URL}${path}`, {
